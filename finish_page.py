@@ -20,7 +20,6 @@ class FinishPage:
         )
         self.group.append(title_label)
 
-        # ---------- 等级 ----------
         level_label = label.Label(
             terminalio.FONT,
             text=f"Level: {level_name}",
@@ -37,12 +36,10 @@ class FinishPage:
         )
         self.group.append(hint_label)
 
-    # ---------- 接收玩家操作 ----------
     def receive(self, msg):
         if msg == "PRESS":
             self.restart = True
             
-    # ---------- 更新方法 ----------
     def clear_figure(self):
         while len(self.group) > 0:
             self.group.pop()

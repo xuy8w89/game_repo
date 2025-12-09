@@ -5,7 +5,7 @@ from adafruit_display_text import label
 import microcontroller
 import gc
 
-NVM_SIZE = 128   # 固定使用前 128 字节
+NVM_SIZE = 128
 
 class Rankings:
     def __init__(self, group):
@@ -38,19 +38,16 @@ class Rankings:
         for i in range(self.DATA_SIZE):
             microcontroller.nvm[i] = packed[i]
 
-    # ===== 是否进入前三 =====
     def is_high_score(self, score):
         return score > self.records[-1][1]
 
-    # ===== 插入新分数 =====
     def insert(self, name, score):
-        gc.collect() # 插入前主动回收
+        gc.collect() 
         self.records.append((name, score))
         self.records.sort(key=lambda x: x[1], reverse=True)
         self.records = self.records[:3]
         self.save()
 
-    # ===== 显示排行榜 =====
     def show(self):
         self.texts.clear()
 
@@ -72,7 +69,6 @@ class Rankings:
         )
         self.group.append(helper)
 
-    # ===== 接收按键 =====
     def receive(self, event):
         if event == "PRESS":
             self.restart = True
@@ -83,7 +79,6 @@ class Rankings:
             self.clear_figure()
             self.show()
 
-    # ===== 清屏 =====
     def clear_figure(self):
         while len(self.group) > 0:
             self.group.pop()

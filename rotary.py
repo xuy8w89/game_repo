@@ -9,15 +9,12 @@ class Rotary:
 
         for p in [self.a, self.b, self.sw]:
             p.direction = digitalio.Direction.INPUT
-            p.pull = digitalio.Pull.UP   # 接 GND，必须上拉
+            p.pull = digitalio.Pull.UP   
 
-        # 旋转状态
         self.last_a = self.a.value
 
-        # 按钮状态
         self.last_sw = self.sw.value
 
-        # 消抖时间
         self.last_rot_time = time.monotonic()
         self.last_sw_time = time.monotonic()
 
@@ -26,7 +23,6 @@ class Rotary:
         pressed = False
         now = time.monotonic()
 
-        # ---------- 旋转读取（10ms 消抖） ----------
         if now - self.last_rot_time > 0.01:
             self.last_rot_time = now
             a = self.a.value
@@ -34,17 +30,15 @@ class Rotary:
 
             if a != self.last_a:
                 if b != a:
-                    direction = 1   # 顺时针
+                    direction = 1  
                 else:
-                    direction = -1  # 逆时针
+                    direction = -1 
                 self.last_a = a
 
-        # ---------- 按键读取（20ms 消抖 + 边沿触发） ----------
         if now - self.last_sw_time > 0.02:
             self.last_sw_time = now
             sw = self.sw.value
 
-            # 只在：从 松开 -> 按下 的瞬间触发
             if self.last_sw and not sw:
                 pressed = True
 

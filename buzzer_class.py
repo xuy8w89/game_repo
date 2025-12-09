@@ -3,7 +3,6 @@ import pwmio
 
 class Buzzer:
     def __init__(self, pin):
-        # ✅ 关键修复：必须加入 variable_frequency=True
         self.buzzer = pwmio.PWMOut(
             pin,
             duty_cycle=0,
@@ -12,9 +11,8 @@ class Buzzer:
         )
 
     def tone(self, freq, duration):
-        """播放指定频率与时长"""
         self.buzzer.frequency = freq
-        self.buzzer.duty_cycle = 32768  # 50% 占空比
+        self.buzzer.duty_cycle = 32768  
         time.sleep(duration)
         self.buzzer.duty_cycle = 0
         time.sleep(0.05)
@@ -29,7 +27,7 @@ class Buzzer:
             (784, 0.12),   # G5
             (1046, 0.25),  # C6
             (784, 0.12),   # G5
-            (1046, 0.35),  # C6（长音收尾）
+            (1046, 0.35),  # C6
         ]
         for freq, dur in melody:
             self.tone(freq, dur)
@@ -39,7 +37,7 @@ class Buzzer:
             (784, 0.15),   # G5
             (659, 0.15),   # E5
             (523, 0.2),    # C5
-            (392, 0.4),    # G4（低沉收尾）
+            (392, 0.4),    # G4
         ]
         for freq, dur in melody:
             self.tone(freq, dur)

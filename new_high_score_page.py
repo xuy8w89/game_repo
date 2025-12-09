@@ -26,7 +26,7 @@ class NewHighScorePage:
         self.group.append(self.bg)
 
     def receive(self, event):
-        if event == "DOWN":  # 只用一个方向
+        if event == "DOWN":  
             self.index = (self.index + 1) % len(self.letters)
             self.char_label.text = self.letters[self.index]
 

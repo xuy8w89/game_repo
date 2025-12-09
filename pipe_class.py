@@ -9,15 +9,12 @@ class Pipe:
         self.PIPE_WIDTH = width
         self.passed = False
 
-        # -------- 顶部管道 --------
         top_h = gap_y
         self.top_bitmap = displayio.Bitmap(self.PIPE_WIDTH, top_h, 2)
 
-        # -------- 底部管道 --------
         bottom_h = screen_h - (gap_y + gap_h)
         self.bottom_bitmap = displayio.Bitmap(self.PIPE_WIDTH, bottom_h, 2)
 
-        # 全部填充为白色
         for x_ in range(self.PIPE_WIDTH):
             for y_ in range(top_h):
                 self.top_bitmap[x_, y_] = 1

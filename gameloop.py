@@ -13,12 +13,11 @@ def construct_skill_tile():
     height = 64
 
     radius = 100
-    bitmap = displayio.Bitmap(width, height, 2)  # 2色
+    bitmap = displayio.Bitmap(width, height, 2) 
     palette = displayio.Palette(2)
-    palette[0] = 0x000000  # 背景
-    palette[1] = 0xFFFFFF  # 白色圆
+    palette[0] = 0x000000  
+    palette[1] = 0xFFFFFF  
 
-    # 填充左半圆
     for y in range(height):
         for x in range(width):
             dx = radius - width // 2 + x
@@ -35,19 +34,17 @@ class gameloop():
 
     # =========================
     def wrap_up(self):
-        # 1. 清空显示组
         while len(self.main_group) > 0:
             self.main_group.pop()
 
-        # 2. 清空所有持久的引用
         self.pipes.clear()
         self.bird = None
         self.bonus = None
         self.finish_line = None
         self.score_label = None
-        self.pipe_palette = None # 如果不共享，也应清除
+        self.pipe_palette = None 
 
-        # 3. 主动触发垃圾回收
+        
         import gc
         gc.collect()
     
@@ -178,7 +175,7 @@ class gameloop():
             gap_h=self.PIPE_GAP,
             screen_h=64,
             palette=self.pipe_palette,
-            width=width   # ✅ 动态宽度
+            width=width   
         )
 
         self.pipes.append(pipe)
@@ -276,7 +273,6 @@ class gameloop():
             else:
                 self.skill_timer -= 1
 
-        # ---- 生成各种东西 ----
         self.frame += 1
         self.frame %= 40
         if self.frame == 0:
@@ -327,7 +323,6 @@ class gameloop():
 
         self.pipes = new_pipes
 
-        # -------- ✅ 终点线移动 & 碰撞 --------
         if self.finish_line:
             self.finish_line.move(self.PIPE_SPEED)
 

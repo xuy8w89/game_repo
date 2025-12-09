@@ -18,14 +18,13 @@ class OptionPage:
         self.update_arrow()
 
     def draw_static(self):
-        # 只画一次界面
         title = label.Label(terminalio.FONT, text="Select Mode", x=10, y=5)
         self.group.append(title)
         
         for i, opt in enumerate(self.options):
             txt = label.Label(
                 terminalio.FONT,
-                text=f"  {opt}: {self.descrips[i]}",   # 开头留两个空格
+                text=f"  {opt}: {self.descrips[i]}", 
                 x=20,
                 y=18 + i * 12
             )
@@ -33,7 +32,6 @@ class OptionPage:
             self.labels.append(txt)
 
     def update_arrow(self):
-        # 只更新箭头，不重绘整页
         for i, lbl in enumerate(self.labels):
             if i == self.index:
                 lbl.text = f"> {self.options[i]}: {self.descrips[i]}"

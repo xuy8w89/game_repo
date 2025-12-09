@@ -8,7 +8,6 @@ class FinishLine:
         self.palette[0] = 0x000000
         self.palette[1] = 0xFFFFFF
 
-        # 画“终点虚线（更粗）”
         for y in range(0, screen_h, 3):
             for w in range(4):
                 self.bitmap[w, y] = 1
